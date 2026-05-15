@@ -1,0 +1,24 @@
+/* Terminal Background Effect */
+.terminal-effect {
+  background: rgba(0, 0, 0, 0.9); /* Transparent effect */
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+  border: 2px solid #00ff00;
+  padding: 20px;
+}
+
+/* Blinking Cursor */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.animate-blink {
+  animation: blink 0.8s infinite;
+}
+
+/* Terminal Font */
+body {
+  font-family: "Courier New", Courier, monospace;
+  background-color: black;
+  color: #00ff00;
+}

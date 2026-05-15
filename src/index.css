@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* General styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+
+  color: #39ff14; /* Green color for text */
+}
+
+.terminal-effect {
+  animation: typing 2s steps(30) 1s 1 normal both;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Cursor animation */
+.animate-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+input {
+  color: #39ff14;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.video-background {
+  position: fixed; /* Ensures the video stays as the background */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1; /* Puts the video behind everything */
+}
+
+.overlay {
+  position: fixed; /* Ensures the overlay stays in place */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 0;
+}
+
+.terminal {
+  position: relative;
+  z-index: 1; /* Ensures text appears above background */
+  color: green;
+  padding: 20px;
+  overflow-y: auto;
+}
+.terminal-container {
+  background-color: black;
+  color: lime;
+  font-family: "Courier New", monospace;
+  padding: 20px;
+  min-height: 100vh;
+  cursor: text;
+}
+
+.terminal-output p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+}
+
+.terminal-prompt {
+  margin-right: 5px;
+  color: lime;
+}
+
+.terminal-input {
+  background: none;
+  border: none;
+  color: lime;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+}
+
+.terminal-input::placeholder {
+  color: rgba(0, 255, 0, 0.5);
+}
+
+.about {
+  color: #007bff;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.skil {
+  color: #007bff;
+  font-weight: bold;
+  font-size: 15px;
+}
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  margin-right: 5px;
+}
+
+.social-links .handles{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 10px; /* Space between icon and text */
+}
+
+.handles a{
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.handles a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.live-session {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 1.5rem; /* Space between the items */
+}
+.live-session .platform {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Space between icon and text */
+}
+.live-session a {
+  text-decoration: none; /* Remove underline */
+  font-weight: bold;
+  font-size: 15px;
+  color: #007bff; /* Ensure link color is inherited */
+  transition: color 0.3s ease;
+}
+
+.live-session a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.donate {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  max-width: 250px;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+.donate div {
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.donate a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.donate a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.donate svg {
+  font-size: 15px;
+  color: #ff9800;
+}
+
+
+.project {
+  margin: auto;
+}
+
+.project li {
+  margin-bottom: 5px; /* Adds space between each project */
+  font-size: 15px;
+}
+
+.project a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.project a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.bugbounty-platform p {
+  color: #007bff;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.contact p {
+  color: #007bff;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+  font-weight: bold;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
