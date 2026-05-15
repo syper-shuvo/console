@@ -3,83 +3,302 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Favicon -->
+    <title>Portfolio</title>
     <link rel="icon" type="image/png" href="/banner.png" />
-
-    <!-- SEO Meta Tags -->
-    <title>Suryesh | Security Researcher & Penetration Tester</title>
-    <meta name="description" content="Suryesh - Security Researcher, Penetration Tester, and Bug Bounty Hunter. Explore my terminal-style portfolio." />
-    <meta name="keywords" content="Suryesh, security researcher, penetration tester, bug bounty, ethical hacker, web security" />
-    <meta name="author" content="Suryesh" />
-
-    <!-- Open Graph (for link previews on social media) -->
-    <meta property="og:title" content="Suryesh | Security Researcher" />
-    <meta property="og:description" content="Terminal-style portfolio of Suryesh - Bug Bounty Hunter & Penetration Tester." />
-    <meta property="og:image" content="/banner.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://hackwithsuryesh.netlify.app/" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Suryesh | Security Researcher" />
-    <meta name="twitter:description" content="Terminal-style portfolio of Suryesh - Bug Bounty Hunter & Penetration Tester." />
-    <meta name="twitter:image" content="/banner.png" />
-    <meta name="twitter:site" content="@Suryesh_92" />
-
-    <!-- Terminal-style page background before React loads -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
       body {
-        margin: 0;
-        padding: 0;
         background-color: black;
         color: #39ff14;
         font-family: 'Courier New', Courier, monospace;
+        height: 100vh;
+        overflow: hidden;
       }
 
-      /* Loading screen shown before React mounts */
-      #loading {
+      /* Video Background */
+      #bg-video {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        object-fit: cover;
+        z-index: -1;
+      }
+
+      /* Main Terminal Wrapper */
+      #terminal-wrapper {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.80);
+        color: lime;
+        font-family: 'Courier New', monospace;
+        padding: 20px;
+        overflow-y: auto;
+        cursor: text;
+      }
+
+      /* Banner */
+      #banner {
+        width: 100%;
+        max-width: 800px;
+        margin-bottom: 20px;
+        display: block;
+      }
+
+      /* Output lines */
+      #output p {
+        margin: 0 0 2px 0;
+        white-space: pre-wrap;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      /* Input line */
+      #input-line {
         display: flex;
         align-items: center;
-        justify-content: center;
-        height: 100vh;
         font-size: 1.2rem;
-        color: #39ff14;
-        letter-spacing: 2px;
+        margin-top: 4px;
       }
 
-      #loading::after {
-        content: '_';
-        animation: blink 0.8s step-end infinite;
+      #prompt {
+        white-space: nowrap;
+        margin-right: 0;
+        color: lime;
       }
 
-      @keyframes blink {
-        50% { opacity: 0; }
+      #cmd-input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: lime;
+        font-size: 1.2rem;
+        font-family: 'Courier New', monospace;
+        width: 100%;
+        caret-color: lime;
       }
+
+      /* Colored command output blocks */
+      .about-text p,
+      .skill-text p,
+      .bugbounty-text p,
+      .contact-text p {
+        color: #007bff;
+        font-weight: bold;
+        font-size: 15px;
+        margin: 2px 0;
+      }
+
+      .social-links, .live-session {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 4px;
+      }
+
+      .handle, .platform {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .handle a, .platform a,
+      .project-list a,
+      .donate-block a {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 15px;
+        color: #007bff;
+        transition: color 0.3s ease;
+      }
+
+      .handle a:hover, .platform a:hover,
+      .project-list a:hover,
+      .donate-block a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+      }
+
+      .handle i, .platform i {
+        color: lime;
+        font-size: 15px;
+      }
+
+      .project-list ol {
+        margin: 4px 0 0 20px;
+      }
+
+      .project-list li {
+        margin-bottom: 5px;
+        font-size: 15px;
+      }
+
+      .donate-block {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        max-width: 280px;
+        padding: 10px;
+        box-shadow: 0 4px 5px rgba(0,0,0,0.1);
+        margin-top: 4px;
+      }
+
+      .donate-block div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px;
+        font-size: 15px;
+      }
+
+      .donate-block i {
+        color: #ff9800;
+      }
+
+      @keyframes blink { 50% { opacity: 0; } }
+      .cursor { animation: blink 0.8s step-end infinite; }
     </style>
   </head>
   <body>
 
-    <!-- Loading fallback shown before React hydrates -->
-    <div id="loading">Booting terminal</div>
+    <video id="bg-video" autoplay loop muted playsinline>
+      <source src="/background.mp4" type="video/mp4" />
+    </video>
 
-    <!-- React mounts here -->
-    <div id="root"></div>
+    <div id="terminal-wrapper" onclick="document.getElementById('cmd-input').focus()">
+      <img id="banner" src="/banner.png" alt="Terminal Banner" onerror="this.style.display='none'" />
+      <div id="output"></div>
+      <div id="input-line">
+        <span id="prompt">hacker@Suryesh: $&nbsp;</span>
+        <input id="cmd-input" type="text" autocomplete="off" autofocus spellcheck="false" />
+      </div>
+    </div>
 
-    <!-- Hide loading screen once React root is ready -->
     <script>
-      const observer = new MutationObserver(() => {
-        const root = document.getElementById('root');
-        if (root && root.children.length > 0) {
-          const loading = document.getElementById('loading');
-          if (loading) loading.style.display = 'none';
-          observer.disconnect();
+      const outputEl = document.getElementById('output');
+      const inputEl  = document.getElementById('cmd-input');
+
+      appendLine("Welcome to Suryesh's Terminal! Type 'help' for a list of commands.");
+
+      function appendLine(content) {
+        const p = document.createElement('p');
+        if (typeof content === 'string') p.textContent = content;
+        else p.appendChild(content);
+        outputEl.appendChild(p);
+      }
+
+      function appendHTML(html) {
+        const p = document.createElement('p');
+        p.innerHTML = html;
+        outputEl.appendChild(p);
+      }
+
+      function scrollBottom() {
+        const w = document.getElementById('terminal-wrapper');
+        w.scrollTop = w.scrollHeight;
+      }
+
+      const commands = {
+        help: () => {
+          [
+            "Available commands:",
+            "- About     : Know about me",
+            "- Skill     : See my skills",
+            "- Project   : View my projects",
+            "- Social    : My social media links",
+            "- Channel   : Check My YouTube channel or Twitch Tv for live session",
+            "- Bugbounty : Platforms where I hunt bugs",
+            "- Contact   : Get in touch",
+            "- Donate    : Donate amount as you wish",
+            "- Clear     : Clear the terminal",
+          ].forEach(l => appendLine(l));
+        },
+
+        about: () => appendHTML(`<div class="about-text">
+          <p>👨‍💻 Security Researcher | Penetration Tester</p>
+          <p>🔍 Exploring the depths of web security, vulnerability testing, and automation.</p>
+          <p>🛠️ Skilled in creating tools for Automation Testing.</p>
+          <p>📜 Crafting custom scripts to find sensitive information, perform directory brute-forcing, and Google Dorking.</p>
+          <p>🎥 Sharing knowledge and practical demonstrations on my YouTube channel (focused on security research).</p>
+        </div>`),
+
+        skill: () => appendHTML(`<div class="skill-text">
+          <p>👉 Languages: Solidity, React, JavaScript, Bash Script, PHP, HTML, CSS.</p>
+          <p>👉 Tools: Burp Suite, Nmap, Wireshark, Linux, Metasploit, etc.</p>
+        </div>`),
+
+        project: () => {
+          appendLine("🔥 Our Projects");
+          appendHTML(`<div class="project-list"><ol>
+            <li><a href="https://github.com/Suryesh/OTX_AlienVault_URL" target="_blank">Url Extraction (scraper) from Alien vault</a></li>
+            <li><a href="https://github.com/Suryesh/Subenum" target="_blank">Subdomain Enumeration</a></li>
+            <li><a href="https://github.com/Suryesh/web_archive" target="_blank">WaybackUrls Collector - Private (Very soon I'll Public It.)</a></li>
+            <li><a href="https://github.com/Suryesh/Project" target="_blank">Women Safety Device using IoT Device - College Final year Major Project</a></li>
+          </ol></div>`);
+        },
+
+        social: () => {
+          appendLine("🌐 Follow me on:");
+          appendHTML(`<div class="social-links">
+            <div class="handle"><i class="fab fa-twitter"></i><a href="https://x.com/Suryesh_92" target="_blank">Twitter</a></div>
+            <div class="handle"><i class="fab fa-linkedin"></i><a href="https://www.linkedin.com/in/dhananjay-kumar-suryesh-535995220" target="_blank">LinkedIn</a></div>
+            <div class="handle"><i class="fab fa-instagram"></i><a href="https://instagram.com/suryesh_92" target="_blank">Instagram</a></div>
+            <div class="handle"><i class="fab fa-github"></i><a href="https://github.com/Suryesh" target="_blank">GitHub</a></div>
+            <div class="handle"><i class="fab fa-discord"></i><a href="https://discord.gg/U9u4djHu" target="_blank">Discord</a></div>
+            <div class="handle"><i class="fab fa-twitch"></i><a href="https://www.twitch.tv/suryesh_92" target="_blank">Twitch TV</a></div>
+            <div class="handle"><i class="fab fa-medium"></i><a href="https://medium.com/@suryesh92" target="_blank">Read my articles on Medium</a></div>
+            <div class="handle"><i class="fab fa-discord"></i><a href="https://discord.gg/Y467qAFM4X" target="_blank">Join our Community Discord</a></div>
+          </div>`);
+        },
+
+        channel: () => {
+          appendLine("🚀🔴 Subscribe Our channel For live Session on Youtube and Twitch Tv:");
+          appendHTML(`<div class="live-session">
+            <div class="platform"><i class="fab fa-youtube" style="color:red"></i><a href="https://www.youtube.com/@suryesh_92" target="_blank">Check out my YouTube channel</a></div>
+            <div class="platform"><i class="fab fa-twitch" style="color:#9146ff"></i><a href="https://www.twitch.tv/suryesh_92" target="_blank">Check out my Twitch Tv</a></div>
+          </div>`);
+        },
+
+        donate: () => {
+          appendLine("🚀💰 If you learned something from me then donate on Buy me Coffee, Paypal");
+          appendHTML(`<div class="donate-block">
+            <div><i class="fas fa-coffee"></i><a href="https://buymeacoffee.com/suryesh_92" target="_blank">Donate Via Buy me Coffee</a></div>
+            <div><i class="fab fa-paypal" style="color:#003087"></i><a href="https://www.paypal.com/paypalme/Suryesh92" target="_blank">Donate Via Paypal</a></div>
+          </div>`);
+        },
+
+        bugbounty: () => appendHTML(`<div class="bugbounty-text">
+          <p>🚀🔥 I hunt bugs on platforms like HackerOne, Standoff365, Intigriti, Yeswehack.</p>
+        </div>`),
+
+        contact: () => appendHTML(`<div class="contact-text">
+          <p>🚀📧 You can contact me for project testing at: cyber.anonymous9031@gmail.com</p>
+        </div>`),
+
+        clear: () => { outputEl.innerHTML = ''; },
+      };
+
+      inputEl.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          const raw = inputEl.value.trim();
+          const cmd = raw.toLowerCase();
+
+          if (cmd !== 'clear') appendLine('$ ' + raw);
+
+          if (commands[cmd]) {
+            commands[cmd]();
+          } else if (cmd !== '') {
+            appendLine(`Command not found: ${raw}. Type 'help' for a list of commands.`);
+          }
+
+          inputEl.value = '';
+          scrollBottom();
         }
       });
-      observer.observe(document.getElementById('root'), { childList: true });
+
+      new MutationObserver(scrollBottom).observe(outputEl, { childList: true, subtree: true });
     </script>
 
-    <!-- Vite entry point -->
-    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
